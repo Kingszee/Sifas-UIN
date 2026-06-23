@@ -1,0 +1,103 @@
+<!-- ============================================================
+     HALAMAN 1: BERANDA
+     File: pages/beranda.html
+============================================================ -->
+<div id="beranda" class="page active">
+
+  <div class="hero">
+    <div class="hero-text">
+      <h1>Peminjaman Fasilitas Kampus Lebih Mudah dan Cepat</h1>
+      <p>Ajukan peminjaman fasilitas kampus UIN Jakarta kapan saja, di mana saja tanpa perlu login.</p>
+      <button class="btn-primary" onclick="go('fasilitas')">Pinjam Sekarang →</button>
+    </div>
+    <!-- Logo UIN di hero -->
+    <div class="hero-img" style="display:flex; align-items:center; justify-content:center; background:transparent; border:none; box-shadow:none;">
+      <img src="img/logo-uin.png" alt="UIN Jakarta"
+           style="width:130px; height:130px; object-fit:contain;"
+           onerror="this.style.display='none'" />
+    </div>
+  </div>
+
+  <!-- ============================================================
+       SLIDER FITUR — 3 slide dengan gambar nyata
+  ============================================================ -->
+  <div class="fslider-wrap">
+
+    <button class="fslider-arrow fslider-prev" onclick="sliderNav(-1)" aria-label="Sebelumnya">‹</button>
+
+    <div class="fslider-track" id="fsliderTrack">
+
+      <!-- Slide 1 -->
+      <div class="fslider-slide">
+        <img src="img/slider-1.png" alt="SiFas UIN — Mudah & Praktis" />
+      </div>
+
+      <!-- Slide 2 -->
+      <div class="fslider-slide">
+        <img src="img/slider-2.png" alt="Pantau Status Peminjaman" />
+      </div>
+
+      <!-- Slide 3 -->
+      <div class="fslider-slide">
+        <img src="img/slider-3.png" alt="Ajukan Peminjaman" />
+      </div>
+
+    </div><!-- /fslider-track -->
+
+    <button class="fslider-arrow fslider-next" onclick="sliderNav(1)" aria-label="Selanjutnya">›</button>
+
+    <div class="fslider-dots" id="fsliderDots">
+      <span class="fslider-dot active" onclick="sliderGoTo(0)"></span>
+      <span class="fslider-dot"        onclick="sliderGoTo(1)"></span>
+      <span class="fslider-dot"        onclick="sliderGoTo(2)"></span>
+    </div>
+
+  </div><!-- /fslider-wrap -->
+
+  <div class="section-header">
+    <h2>Fasilitas Populer</h2>
+    <a class="link-all" onclick="go('fasilitas')">Lihat Semua →</a>
+  </div>
+
+  <div class="facilities-grid">
+    <div class="facility-card" onclick="showDetail('aula')">
+      <div class="fac-img" >
+        <img src="img/aula-center.jpg" alt="Aula Center"
+             
+             onerror="this.parentElement.innerHTML='🏟️'; this.parentElement.style.fontSize='28px'; this.parentElement.style.display='flex'; this.parentElement.style.alignItems='center'; this.parentElement.style.justifyContent='center';" />
+      </div>
+      <div class="fac-body">
+        <div class="fac-name">Aula Student Center</div>
+        <div class="fac-cap">Kapasitas 200 Orang</div>
+        
+      </div>
+    </div>
+
+    <div class="facility-card" onclick="showDetail('proyektor')">
+      <div class="fac-img" >
+        <img src="img/proyektor.jpg" alt="Proyektor"
+             
+             onerror="this.parentElement.innerHTML='📽️'; this.parentElement.style.fontSize='28px'; this.parentElement.style.display='flex'; this.parentElement.style.alignItems='center'; this.parentElement.style.justifyContent='center';" />
+      </div>
+      <div class="fac-body">
+        <div class="fac-name">Proyektor</div>
+        <div class="fac-cap">LCD Projector & Screen</div>
+        
+      </div>
+    </div>
+
+    <div class="facility-card" onclick="showDetail('sound')">
+      <div class="fac-img" >
+        <img src="img/sound-system.jpg" alt="Sound System"
+             
+             onerror="this.parentElement.innerHTML='🔊'; this.parentElement.style.fontSize='28px'; this.parentElement.style.display='flex'; this.parentElement.style.alignItems='center'; this.parentElement.style.justifyContent='center';" />
+      </div>
+      <div class="fac-body">
+        <div class="fac-name">Sound System</div>
+        <div class="fac-cap">Speaker & Mixer</div>
+        
+      </div>
+    </div>
+  </div>
+
+</div><!-- /beranda -->

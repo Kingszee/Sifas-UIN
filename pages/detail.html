@@ -1,0 +1,80 @@
+<!-- ============================================================
+     HALAMAN 3: DETAIL FASILITAS
+     File: pages/detail.html
+     Sinkron: id detailIcon/Name/Cap/Loc/Badge/Amenities/Desc → showDetail() di main.js
+              id calGrid/calLabel/calPrev/calNext              → calendar.js
+============================================================ -->
+<div id="detail" class="page">
+
+  <div class="breadcrumb">
+    <a onclick="go('fasilitas')">Fasilitas</a> › Detail Fasilitas
+  </div>
+
+  <div class="detail-layout">
+
+    <!-- Kolom Kiri: Info -->
+    <div>
+      <div class="detail-img" id="detailIcon">🏟️</div>
+      <div class="detail-info">
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:10px">
+          <h2 id="detailName">Aula Student Center</h2>
+          <span class="badge badge-green" id="detailBadge">Tersedia</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">Kapasitas</span>
+          <span class="info-val" id="detailCap"></span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">Lokasi</span>
+          <span class="info-val" id="detailLoc"></span>
+        </div>
+        <div style="font-size:13px; color:var(--gray-3); margin-top:4px; margin-bottom:8px;">Fasilitas:</div>
+        <div class="amenities" id="detailAmenities"></div>
+        <div style="margin-top:12px">
+          <div style="font-size:13px; font-weight:600; margin-bottom:6px;">Deskripsi</div>
+          <p id="detailDesc" style="font-size:13px; color:var(--gray-3); line-height:1.6"></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Kolom Kanan: Kalender -->
+    <div>
+      <div class="calendar-box">
+        <div class="cal-header">
+          <button class="cal-nav" id="calPrev" onclick="calNav(-1)">‹</button>
+          <span id="calLabel">memuat...</span>
+          <button class="cal-nav" id="calNext" onclick="calNav(1)">›</button>
+        </div>
+        <div class="cal-grid" id="calGrid">
+          <div class="cal-day-name">Min</div>
+          <div class="cal-day-name">Sen</div>
+          <div class="cal-day-name">Sel</div>
+          <div class="cal-day-name">Rab</div>
+          <div class="cal-day-name">Kam</div>
+          <div class="cal-day-name">Jum</div>
+          <div class="cal-day-name">Sab</div>
+        </div>
+        <div class="cal-legend">
+          <div class="leg">
+            <div class="leg-dot" style="background:var(--green-light);border:1px solid var(--green)"></div>
+            Tersedia
+          </div>
+          <div class="leg">
+            <div class="leg-dot" style="background:var(--amber-light);border:1px solid var(--amber)"></div>
+            Menunggu Verifikasi
+          </div>
+          <div class="leg">
+            <div class="leg-dot" style="background:var(--red-light);border:1px solid var(--red)"></div>
+            Sedang Dipinjam
+          </div>
+          <div class="leg">
+            <div class="leg-dot" style="background:var(--gray-2)"></div>
+            Tgl Sudah Lewat
+          </div>
+        </div>
+        <button class="btn-ajukan" onclick="go('form')">Ajukan Peminjaman</button>
+      </div>
+    </div>
+
+  </div>
+</div>

@@ -1,0 +1,68 @@
+<!-- ============================================================
+     HALAMAN SCANNER BARCODE
+     File   : pages/scanner.html
+     ID     : #scanner
+     Fungsi : Scan barcode booking via kamera → tampilkan data peminjam
+     Library: html5-qrcode (via CDN)
+     Sinkron: bukaScanner(), tutupScanner(), onScanSuccess() → scanner.js
+============================================================ -->
+<div id="scanner" class="page">
+  <div class="scanner-screen">
+    <div class="scanner-card">
+
+      <!-- Header -->
+      <div class="scanner-header">
+        <button class="scanner-back-btn" onclick="tutupScanner()">
+          ← Kembali
+        </button>
+        <div>
+          <h2>Scanner Barcode</h2>
+          <p>Arahkan kamera ke barcode peminjam</p>
+        </div>
+      </div>
+
+      <!-- Area Kamera -->
+      <div class="scanner-cam-wrap">
+        <!-- html5-qrcode render di sini -->
+        <div id="scannerCam"></div>
+
+        <!-- Overlay garis scan -->
+        <div class="scanner-line"></div>
+
+        <!-- Status kamera -->
+        <div class="scanner-cam-status" id="scannerCamStatus">
+          Memulai kamera...
+        </div>
+      </div>
+
+      <!-- Atau input manual -->
+      <div class="scanner-manual">
+        <p style="font-size:12px; color:var(--gray-3); margin-bottom:8px; text-align:center;">
+          — atau masukkan ID Booking manual —
+        </p>
+        <div style="display:flex; gap:8px;">
+          <input
+            type="text"
+            id="scannerManualInput"
+            placeholder="Contoh: SF260522-4821"
+            style="flex:1; padding:9px 12px; border:1px solid var(--border);
+                   border-radius:6px; font-size:13px; outline:none;"
+            onkeydown="if(event.key==='Enter') scanManual()"
+          />
+          <button onclick="scanManual()"
+                  style="padding:9px 16px; background:var(--blue); color:white;
+                         border:none; border-radius:6px; font-size:13px;
+                         font-weight:600; cursor:pointer; white-space:nowrap;">
+            Cek
+          </button>
+        </div>
+      </div>
+
+      <!-- Hasil Scan -->
+      <div id="scannerResult" style="display:none; margin-top:16px;">
+        <!-- Diisi oleh tampilHasilScan() di scanner.js -->
+      </div>
+
+    </div>
+  </div>
+</div>

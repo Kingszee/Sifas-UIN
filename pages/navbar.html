@@ -1,0 +1,22 @@
+<!-- ============================================================
+     NAVBAR
+     File: pages/navbar.html
+============================================================ -->
+<nav class="navbar">
+  <div class="logo-area">
+    <!-- Logo UIN Jakarta -->
+    <img src="img/logo-uin.png" alt="Logo UIN"
+         style="width:38px; height:38px; object-fit:contain; border-radius:50%;" />
+    <div class="logo-text">
+      <h3>SiFas</h3>
+      <p>Sistem Peminjaman Fasilitas</p>
+    </div>
+  </div>
+
+  <div class="nav-links">
+    <button class="nav-btn active" data-page="beranda"   onclick="go('beranda')">Beranda</button>
+    <button class="nav-btn"        data-page="fasilitas" onclick="go('fasilitas')">Fasilitas</button>
+    <button class="nav-btn"        data-page="cara"      onclick="go('cara')">Cara Penggunaan</button>
+    <button class="nav-btn"        data-page="status"    onclick="go('status'); autoLoadLastBooking()">Cek Status</button>
+  </div>
+</nav>

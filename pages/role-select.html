@@ -1,0 +1,56 @@
+<!-- ============================================================
+     HALAMAN PEMILIHAN PERAN
+     File   : pages/role-select.html
+     ID     : #role-select
+============================================================ -->
+<div id="role-select" class="page">
+  <div class="role-screen">
+    <div class="role-card" style="max-width:480px;">
+
+      <div class="role-logo">
+        <img src="img/logo-uin.png" alt="Logo UIN Jakarta"
+             style="width:80px; height:80px; object-fit:contain;"
+             onerror="this.style.display='none'" />
+      </div>
+
+      <h1>SiFas UIN Jakarta</h1>
+      <p>Sistem Peminjaman Fasilitas Kampus<br>Silakan pilih akses yang sesuai</p>
+
+      <!-- 2x2 grid layout -->
+      <div class="role-options" style="grid-template-columns: repeat(2, 1fr); gap:12px;">
+
+        <!-- Baris 1 -->
+        <div class="role-btn" onclick="masukSebagaiUser()">
+          <div class="role-icon">🎓</div>
+          <h3>Peminjam</h3>
+          <p>Mahasiswa / Civitas<br>Tanpa login</p>
+        </div>
+
+        <div class="role-btn" onclick="goLoginDenganRole('admin')">
+          <div class="role-icon">🔐</div>
+          <h3>Admin</h3>
+          <p>Pengelola fasilitas<br>Wajib login</p>
+        </div>
+
+        <!-- Baris 2 -->
+        <div class="role-btn" onclick="goLoginDenganRole('audit')">
+          <div class="role-icon">🔍</div>
+          <h3>Audit</h3>
+          <p>Pemantau progres<br>Wajib login</p>
+        </div>
+
+        <div class="role-btn" onclick="bukaScanner()">
+          <div class="role-icon">📷</div>
+          <h3>Scanner</h3>
+          <p>Validasi barcode<br>Tanpa login</p>
+        </div>
+
+      </div>
+
+      <p style="font-size:11px; color:var(--gray-3); margin-top:20px; margin-bottom:0;">
+        UIN Syarif Hidayatullah Jakarta © 2026
+      </p>
+
+    </div>
+  </div>
+</div>

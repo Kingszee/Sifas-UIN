@@ -1,0 +1,382 @@
+<!-- ============================================================
+     HALAMAN ADMIN DASHBOARD
+     File   : pages/admin-dashboard.html
+     Dimuat : main.js → loadAllPages()
+     ID     : #admin-dashboard
+     Fungsi : dashboard lengkap admin dengan sidebar navigasi
+     Sinkron: SEMUA logika dikontrol oleh admin.js
+              Panel aktif: #ap-overview, #ap-pengajuan,
+                           #ap-fasilitas, #ap-kalender
+              Topbar title: #adminPanelTitle
+              Admin email : #adminEmailDisplay
+              Stats       : #statTotal, #statMenunggu,
+                            #statDisetujui, #statDitolak
+              Tabel       : #tblPengajuan, #filterStatus, #searchPengajuan
+              Modal tolak : #modalTolak, #inputAlasan
+============================================================ -->
+<div id="admin-dashboard" class="page">
+<div class="admin-layout">
+
+  <!-- ═══════════════════════════════════════════
+       SIDEBAR
+  ════════════════════════════════════════════ -->
+  <aside class="admin-sidebar">
+
+    <div class="sidebar-logo">
+      <h3>SiFas Dashboard</h3>
+      <p>UIN Jakarta</p>
+      <!--
+        id="sidebarRoleBadge" → diisi _initAdminDashboard() di admin.js
+        Admin  → teks "ADMIN",  background amber
+        Audit  → teks "AUDIT",  background biru
+      -->
+      <span class="sidebar-badge" id="sidebarRoleBadge">–</span>
+    </div>
+
+    <nav class="sidebar-nav">
+      <div class="sidebar-item active" onclick="adminNav('overview', this)">
+        <span class="si-icon">📊</span> Overview
+      </div>
+      <div class="sidebar-item" onclick="adminNav('pengajuan', this)">
+        <span class="si-icon">📋</span> Pengajuan Masuk
+      </div>
+      <!--
+        id="sidebarItemFasilitas"
+        Audit: pointer-events:none + opacity 0.4 (dikunci admin.js)
+      -->
+      <div class="sidebar-item" id="sidebarItemFasilitas" onclick="adminNav('fasilitas', this)">
+        <span class="si-icon">🏛️</span> Kelola Fasilitas
+      </div>
+      <div class="sidebar-item" onclick="adminNav('kalender', this)">
+        <span class="si-icon">📅</span> Kalender Booking
+      </div>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="sidebar-admin-info" id="adminEmailDisplay">–</div>
+      <button class="btn-logout" onclick="logoutAdmin()">⬆ Logout</button>
+    </div>
+
+  </aside>
+
+  <!-- ═══════════════════════════════════════════
+       MAIN CONTENT
+  ════════════════════════════════════════════ -->
+  <main class="admin-main">
+
+    <!-- Topbar -->
+    <div class="admin-topbar">
+      <!-- id="adminPanelTitle" diisi oleh adminNav() di admin.js -->
+      <h2 id="adminPanelTitle">Overview</h2>
+      <span id="adminTodayDate"></span>
+    </div>
+
+    <div class="admin-content">
+
+      <!-- ───────────────────────────────────────
+           PANEL 1: OVERVIEW
+           id="ap-overview" — aktif default
+      ─────────────────────────────────────── -->
+      <div id="ap-overview" class="admin-panel active">
+
+        <!-- Stat Cards — diisi oleh loadStats() di admin.js -->
+        <div class="admin-stats">
+          <div class="stat-card">
+            <div class="stat-label">Total Pengajuan</div>
+            <div class="stat-num" id="statTotal">–</div>
+            <div class="stat-sub">Semua waktu</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Menunggu</div>
+            <div class="stat-num" id="statMenunggu" style="color:var(--amber)">–</div>
+            <div class="stat-sub">Perlu ditindaklanjuti</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Disetujui</div>
+            <div class="stat-num" id="statDisetujui" style="color:var(--green)">–</div>
+            <div class="stat-sub">Booking aktif</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Ditolak</div>
+            <div class="stat-num" id="statDitolak" style="color:var(--red)">–</div>
+            <div class="stat-sub">Tidak diproses</div>
+          </div>
+        </div>
+
+        <!-- Pengajuan terbaru (5 baris) — diisi oleh loadStats() -->
+        <div class="admin-table-wrap">
+          <div class="admin-table-header">
+            <h3>Pengajuan Terbaru</h3>
+            <button class="btn-add-fac" style="font-size:12px; padding:6px 14px;"
+                    onclick="adminNav('pengajuan', document.querySelectorAll('.sidebar-item')[1])">
+              Lihat Semua →
+            </button>
+          </div>
+          <table class="tbl">
+            <thead>
+              <tr>
+                <th>ID Booking</th>
+                <th>Nama</th>
+                <th>Fasilitas</th>
+                <th>Tanggal</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <!-- id="tblOverviewBody" diisi oleh loadStats() di admin.js -->
+            <tbody id="tblOverviewBody">
+              <tr><td colspan="5" class="tbl-empty">Memuat data...</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+      </div><!-- /ap-overview -->
+
+
+      <!-- ───────────────────────────────────────
+           PANEL 2: PENGAJUAN MASUK
+           id="ap-pengajuan"
+      ─────────────────────────────────────── -->
+      <div id="ap-pengajuan" class="admin-panel">
+
+        <!--
+          id="auditBannerPengajuan"
+          Hanya tampil untuk role audit (dikontrol admin.js)
+        -->
+        <div id="auditBannerPengajuan" class="info-banner info"
+             style="display:none; margin-bottom:14px;">
+          🔍 Mode <strong>Audit</strong> — Anda hanya dapat melihat data. Aksi Setujui/Tolak tidak tersedia.
+        </div>
+
+        <div class="admin-table-wrap">
+          <div class="admin-table-header">
+            <h3>Semua Pengajuan</h3>
+            <div class="admin-filter">
+              <!-- id="filterStatus" dikontrol filterPengajuan() di admin.js -->
+              <select id="filterStatus" onchange="filterPengajuan()">
+                <option value="">Semua Status</option>
+                <option value="menunggu">Menunggu</option>
+                <option value="disetujui">Disetujui</option>
+                <option value="ditolak">Ditolak</option>
+              </select>
+              <!-- id="searchPengajuan" dikontrol filterPengajuan() di admin.js -->
+              <input type="text" id="searchPengajuan" placeholder="Cari nama / ID..."
+                     oninput="filterPengajuan()" />
+            </div>
+          </div>
+
+          <table class="tbl">
+            <thead>
+              <tr>
+                <th>ID Booking</th>
+                <th>Nama / NIM</th>
+                <th>Fasilitas</th>
+                <th>Tanggal & Waktu</th>
+                <th>Peserta</th>
+                <th>Status</th>
+                <th>Aksi</th>
+              </tr>
+            </thead>
+            <!-- id="tblPengajuan" diisi oleh renderTabelPengajuan() di admin.js -->
+            <tbody id="tblPengajuan">
+              <tr><td colspan="7" class="tbl-empty">Memuat data...</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+      </div><!-- /ap-pengajuan -->
+
+
+      <!-- ───────────────────────────────────────
+           PANEL 3: KELOLA FASILITAS
+           id="ap-fasilitas"
+      ─────────────────────────────────────── -->
+      <div id="ap-fasilitas" class="admin-panel">
+
+        <!--
+          id="auditBannerFasilitas"
+          Hanya tampil untuk role audit — tombol tambah/edit/hapus disembunyikan
+        -->
+        <div id="auditBannerFasilitas" class="info-banner info"
+             style="display:none; margin-bottom:14px;">
+          🔍 Mode <strong>Audit</strong> — Panel ini hanya untuk ditampilkan. Tambah / Edit / Hapus fasilitas tidak tersedia.
+        </div>
+
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+          <div>
+            <h3 style="font-size:14px; font-weight:600;">Daftar Fasilitas</h3>
+            <p style="font-size:12px; color:var(--gray-3);">Tambah, edit, atau hapus fasilitas yang tersedia</p>
+          </div>
+          <!-- Tombol tambah fasilitas → bukaModalFasilitas() di admin.js -->
+          <button class="btn-add-fac" onclick="bukaModalFasilitas()">+ Tambah Fasilitas</button>
+        </div>
+
+        <!-- id="fasilitasAdminGrid" diisi oleh renderFasilitasAdmin() di admin.js -->
+        <div class="fac-admin-grid" id="fasilitasAdminGrid">
+          <div style="color:var(--gray-3); font-size:13px; padding:20px;">Memuat data...</div>
+        </div>
+
+      </div><!-- /ap-fasilitas -->
+
+
+      <!-- ───────────────────────────────────────
+           PANEL 4: KALENDER BOOKING
+           id="ap-kalender"
+      ─────────────────────────────────────── -->
+      <div id="ap-kalender" class="admin-panel">
+
+        <div class="admin-cal-wrap">
+          <div class="cal-header">
+            <button class="cal-nav" onclick="adminCalNav(-1)">‹</button>
+            <span id="adminCalLabel">memuat...</span>
+            <button class="cal-nav" onclick="adminCalNav(1)">›</button>
+          </div>
+
+          <!-- id="adminCalGrid" diisi oleh renderAdminCalendar() di admin.js -->
+          <div class="cal-grid" id="adminCalGrid">
+            <div class="cal-day-name">Min</div>
+            <div class="cal-day-name">Sen</div>
+            <div class="cal-day-name">Sel</div>
+            <div class="cal-day-name">Rab</div>
+            <div class="cal-day-name">Kam</div>
+            <div class="cal-day-name">Jum</div>
+            <div class="cal-day-name">Sab</div>
+          </div>
+
+          <div class="admin-cal-legend">
+            <div class="leg">
+              <div class="leg-dot" style="background:var(--amber-light);border:1px solid var(--amber)"></div>
+              Menunggu Verifikasi
+            </div>
+            <div class="leg">
+              <div class="leg-dot" style="background:var(--green-light);border:1px solid var(--green)"></div>
+              Disetujui
+            </div>
+            <div class="leg">
+              <div class="leg-dot" style="background:var(--gray-2)"></div>
+              Tidak Ada Booking
+            </div>
+          </div>
+
+          <!-- Detail booking di tanggal yang diklik -->
+          <div id="adminCalDetail" style="margin-top:14px; display:none;">
+            <div style="font-size:13px; font-weight:600; margin-bottom:8px; border-top:1px solid var(--border); padding-top:12px;">
+              Booking pada tanggal ini:
+            </div>
+            <!-- id="adminCalDetailList" diisi oleh renderAdminCalendar() di admin.js -->
+            <div id="adminCalDetailList"></div>
+          </div>
+        </div>
+
+      </div><!-- /ap-kalender -->
+
+    </div><!-- /admin-content -->
+  </main>
+
+</div><!-- /admin-layout -->
+
+
+<!-- ═══════════════════════════════════════════
+     MODAL: KONFIRMASI TOLAK
+     Ditampilkan oleh tolakPengajuan() di admin.js
+════════════════════════════════════════════ -->
+<div class="modal-overlay" id="modalTolak">
+  <div class="modal-box">
+    <h3>Tolak Pengajuan</h3>
+    <p style="font-size:13px; color:var(--gray-3); margin-bottom:12px;">
+      Masukkan alasan penolakan. Alasan ini akan ditampilkan kepada peminjam.
+    </p>
+    <textarea id="inputAlasan" placeholder="Contoh: Tanggal sudah dipakai oleh organisasi lain..."></textarea>
+    <div class="modal-actions">
+      <button class="btn-outline" onclick="tutupModal()">Batal</button>
+      <button class="btn-reject" onclick="konfirmasiTolak()">Tolak Pengajuan</button>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════
+     MODAL: TAMBAH / EDIT FASILITAS
+     Ditampilkan oleh bukaModalFasilitas() di admin.js
+════════════════════════════════════════════ -->
+<div class="modal-overlay" id="modalFasilitas">
+  <div class="modal-box" style="max-width:480px; max-height:90vh; overflow-y:auto;">
+    <h3 id="modalFasilitasTitle">Tambah Fasilitas</h3>
+
+    <div style="display:grid; gap:12px; margin-bottom:16px; margin-top:14px;">
+
+      <div style="display:grid; grid-template-columns:80px 1fr; gap:10px;">
+        <div class="login-group" style="margin:0">
+          <label>Icon</label>
+          <input type="text" id="facIcon" placeholder="🏟️" maxlength="4"
+                 style="font-size:20px; text-align:center;" />
+        </div>
+        <div class="login-group" style="margin:0">
+          <label>Nama Fasilitas <span style="color:var(--red)">*</span></label>
+          <input type="text" id="facNama" placeholder="Aula Student Center" />
+        </div>
+      </div>
+
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+        <div class="login-group" style="margin:0">
+          <label>Kapasitas</label>
+          <input type="text" id="facKap" placeholder="200 Orang / -" />
+        </div>
+        <div class="login-group" style="margin:0">
+          <label>Status</label>
+          <select id="facStatus">
+            <option value="badge-green">Tersedia</option>
+            <option value="badge-amber">Terbatas</option>
+            <option value="badge-red">Penuh</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="login-group" style="margin:0">
+        <label>Lokasi</label>
+        <input type="text" id="facLok" placeholder="Gedung A Lt. 2" />
+      </div>
+
+      <div class="login-group" style="margin:0">
+        <label>Fasilitas / Amenitas <span style="font-size:11px; color:var(--gray-3)">(pisah koma)</span></label>
+        <input type="text" id="facAmen" placeholder="AC, Proyektor, Kursi, Sound System" />
+      </div>
+
+      <div class="login-group" style="margin:0">
+        <label>Deskripsi</label>
+        <textarea id="facDesc" placeholder="Deskripsi lengkap fasilitas..."
+                  style="width:100%; padding:8px 12px; border:1px solid var(--border);
+                         border-radius:6px; font-size:13px; resize:vertical;
+                         min-height:70px; outline:none; font-family:inherit;"></textarea>
+      </div>
+
+    </div>
+
+    <div class="modal-actions">
+      <button class="btn-outline" onclick="tutupModalFasilitas()">Batal</button>
+      <button class="btn-approve" id="btnSimpanFasilitas" onclick="simpanFasilitas()">Simpan</button>
+    </div>
+  </div>
+</div>
+<!-- ═══════════════════════════════════════════
+     MODAL: KONFIRMASI AKSI (ganti browser confirm)
+     Dipakai untuk: Setujui pengajuan & Hapus fasilitas
+     Dikontrol oleh: _tampilKonfirmModal() di admin.js
+════════════════════════════════════════════ -->
+<div class="modal-overlay" id="modalKonfirm">
+  <div class="modal-box" style="max-width:380px; text-align:center;">
+
+    <!-- Ikon — diisi oleh _tampilKonfirmModal() -->
+    <div id="modalKonfirmIcon" style="font-size:40px; margin-bottom:12px;"></div>
+
+    <h3 id="modalKonfirmTitle" style="font-size:16px; font-weight:700; margin-bottom:8px;"></h3>
+    <p  id="modalKonfirmDesc"  style="font-size:13px; color:var(--gray-3); margin-bottom:20px;"></p>
+
+    <div class="modal-actions" style="justify-content:center;">
+      <button class="btn-outline" onclick="tutupKonfirmModal()">Batal</button>
+      <!-- id & style tombol OK diisi dinamis oleh _tampilKonfirmModal() -->
+      <button id="modalKonfirmOk"></button>
+    </div>
+  </div>
+</div>
+
+</div><!-- /admin-dashboard -->

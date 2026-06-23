@@ -1,0 +1,49 @@
+<!-- ============================================================
+     HALAMAN 6: STATUS / TRACKING
+     File: pages/status.html
+     Sinkron: - id="inputBookingId"  → handleCekStatus() di main.js
+              - id="statusResult"    → tampilStatus() di main.js
+                                       (dirender dari data Firestore realtime)
+              - autoLoadLastBooking() dipanggil dari navbar & tombol konfirmasi
+============================================================ -->
+<div id="status" class="page">
+
+  <h2 style="font-size:16px; font-weight:600; margin-bottom:14px;">Cek Status Peminjaman</h2>
+
+  <!-- Input ID Booking -->
+  <div style="background:white; border:1px solid var(--border); border-radius:var(--radius-lg);
+              padding:20px; margin-bottom:16px; display:flex; gap:10px; align-items:flex-end;">
+    <div style="flex:1">
+      <label style="font-size:12px; font-weight:500; color:var(--gray-3); display:block; margin-bottom:5px;">
+        Masukkan ID Booking
+      </label>
+      <input
+        type="text"
+        id="inputBookingId"
+        placeholder="Contoh: SF260512-4821"
+        style="width:100%; padding:8px 12px; border:1px solid var(--border);
+               border-radius:6px; font-size:13px; outline:none;"
+        onkeydown="if(event.key==='Enter') handleCekStatus()"
+      />
+    </div>
+    <button
+      onclick="handleCekStatus()"
+      style="padding:9px 20px; background:var(--blue); color:white; border:none;
+             border-radius:6px; font-size:13px; font-weight:600; cursor:pointer; white-space:nowrap;">
+      🔍 Cek Status
+    </button>
+  </div>
+
+  <!--
+    id="statusResult" — area ini diisi oleh tampilStatus() di main.js
+    dengan HTML hasil dari data Firestore.
+    Kondisi awal: kosong / pesan panduan.
+  -->
+  <div id="statusResult">
+    <div class="info-banner info">
+      ℹ️ Masukkan ID Booking yang Anda terima setelah mengajukan peminjaman, lalu klik Cek Status.
+      Status akan terupdate secara otomatis (realtime) jika admin mengubahnya.
+    </div>
+  </div>
+
+</div>

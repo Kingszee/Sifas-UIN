@@ -1,0 +1,58 @@
+<!-- ============================================================
+     HALAMAN 8: CARA PENGGUNAAN
+     File   : pages/cara.html
+     Dimuat : main.js → loadAllPages() → #root-pages
+     ID     : #cara  (dipakai oleh go('cara'))
+     Fungsi : panduan alur peminjaman & tips penggunaan
+============================================================ -->
+<div id="cara" class="page">
+
+  <h2 style="font-size:16px; font-weight:600; margin-bottom:16px;">Alur Peminjaman</h2>
+
+  <!-- Step Cards -->
+  <div style="display:grid; grid-template-columns:repeat(5,1fr); gap:10px; text-align:center;">
+
+    <div style="background:white; border:1px solid var(--border); border-radius:var(--radius); padding:16px;">
+      <div style="font-size:24px; margin-bottom:8px;">🏛️</div>
+      <div style="font-size:12px; font-weight:600; color:var(--blue);">1. Pilih Fasilitas</div>
+      <div style="font-size:11px; color:var(--gray-3); margin-top:4px;">Pilih fasilitas yang ingin dipinjam</div>
+    </div>
+
+    <div style="background:white; border:1px solid var(--border); border-radius:var(--radius); padding:16px;">
+      <div style="font-size:24px; margin-bottom:8px;">📝</div>
+      <div style="font-size:12px; font-weight:600; color:var(--blue);">2. Ajukan Peminjaman</div>
+      <div style="font-size:11px; color:var(--gray-3); margin-top:4px;">Isi form peminjaman</div>
+    </div>
+
+    <div style="background:white; border:1px solid var(--border); border-radius:var(--radius); padding:16px;">
+      <div style="font-size:24px; margin-bottom:8px;">⏳</div>
+      <div style="font-size:12px; font-weight:600; color:var(--blue);">3. Tunggu Verifikasi</div>
+      <div style="font-size:11px; color:var(--gray-3); margin-top:4px;">Admin memverifikasi pengajuan</div>
+    </div>
+
+    <div style="background:white; border:1px solid var(--border); border-radius:var(--radius); padding:16px;">
+      <div style="font-size:24px; margin-bottom:8px;">✅</div>
+      <div style="font-size:12px; font-weight:600; color:var(--blue);">4. Disetujui</div>
+      <div style="font-size:11px; color:var(--gray-3); margin-top:4px;">Pengajuan berhasil disetujui</div>
+    </div>
+
+    <div style="background:white; border:1px solid var(--border); border-radius:var(--radius); padding:16px;">
+      <div style="font-size:24px; margin-bottom:8px;">📱</div>
+      <div style="font-size:12px; font-weight:600; color:var(--blue);">5. Dapat Barcode</div>
+      <div style="font-size:11px; color:var(--gray-3); margin-top:4px;">Tunjukkan barcode saat ambil</div>
+    </div>
+
+  </div><!-- /step cards -->
+
+  <!-- Tips Penggunaan -->
+  <div style="margin-top:20px; background:white; border:1px solid var(--border); border-radius:var(--radius-lg); padding:20px;">
+    <h3 style="font-size:14px; font-weight:600; margin-bottom:12px;">Tips Penggunaan</h3>
+    <ul style="font-size:13px; color:var(--gray-3); line-height:2; padding-left:18px;">
+      <li>Periksa ketersediaan fasilitas pada kalender sebelum mengajukan</li>
+      <li>Siapkan surat/proposal jika diperlukan untuk acara resmi</li>
+      <li>Simpan ID Booking untuk memudahkan pengecekan status</li>
+      <li>Tunjukkan barcode kepada petugas saat pengambilan fasilitas</li>
+    </ul>
+  </div>
+
+</div><!-- /cara -->

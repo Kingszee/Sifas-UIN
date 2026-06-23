@@ -1,0 +1,121 @@
+<!-- ============================================================
+     HALAMAN 2: FASILITAS
+     File: pages/fasilitas.html
+============================================================ -->
+<div id="fasilitas" class="page">
+
+  <div class="search-bar">
+    <input type="text" placeholder="Cari fasilitas..." id="searchInput" oninput="filterFacilities()" />
+    <select onchange="filterByDropdown(this)" id="catFilter">
+      <option value="Semua">Semua Kategori</option>
+      <option value="Ruangan">Ruangan</option>
+      <option value="Peralatan">Peralatan</option>
+      <option value="Multimedia">Multimedia</option>
+    </select>
+  </div>
+
+  <div class="category-tabs">
+    <button class="cat-btn active" onclick="setCat(this, 'Semua')">Semua</button>
+    <button class="cat-btn"        onclick="setCat(this, 'Ruangan')">Ruangan</button>
+    <button class="cat-btn"        onclick="setCat(this, 'Peralatan')">Peralatan</button>
+    <button class="cat-btn"        onclick="setCat(this, 'Multimedia')">Multimedia</button>
+  </div>
+
+  <div class="facilities-grid" id="facGrid">
+
+    <!-- RUANGAN -->
+    <div class="facility-card" onclick="showDetail('aula')" data-cat="Ruangan">
+      <div class="fac-img" >
+        <img src="img/aula-center.jpg" alt="Aula Center"
+             
+             onerror="this.parentElement.innerHTML='🏟️'; this.parentElement.style.fontSize='28px'; this.parentElement.style.display='flex'; this.parentElement.style.alignItems='center'; this.parentElement.style.justifyContent='center';" />
+      </div>
+      <div class="fac-body">
+        <div class="fac-name">Aula Student Center</div>
+        <div class="fac-cap">Kapasitas 200 Orang</div>
+        
+      </div>
+    </div>
+
+    <div class="facility-card" onclick="showDetail('seminar')" data-cat="Ruangan">
+      <div class="fac-img" >
+        <img src="img/ruang-seminar.jpg" alt="Ruang Seminar"
+             
+             onerror="this.parentElement.innerHTML='🎤'; this.parentElement.style.fontSize='28px'; this.parentElement.style.display='flex'; this.parentElement.style.alignItems='center'; this.parentElement.style.justifyContent='center';" />
+      </div>
+      <div class="fac-body">
+        <div class="fac-name">Ruang Seminar</div>
+        <div class="fac-cap">Kapasitas 50 Orang</div>
+        
+      </div>
+    </div>
+
+    <!-- PERALATAN -->
+    <div class="facility-card" onclick="showDetail('proyektor')" data-cat="Peralatan">
+      <div class="fac-img" >
+        <img src="img/proyektor.jpg" alt="Proyektor"
+             
+             onerror="this.parentElement.innerHTML='📽️'; this.parentElement.style.fontSize='28px'; this.parentElement.style.display='flex'; this.parentElement.style.alignItems='center'; this.parentElement.style.justifyContent='center';" />
+      </div>
+      <div class="fac-body">
+        <div class="fac-name">Proyektor</div>
+        <div class="fac-cap">LCD Projector & Screen</div>
+        
+      </div>
+    </div>
+
+    <div class="facility-card" onclick="showDetail('sound')" data-cat="Peralatan">
+      <div class="fac-img" >
+        <img src="img/sound-system.jpg" alt="Sound System"
+             
+             onerror="this.parentElement.innerHTML='🔊'; this.parentElement.style.fontSize='28px'; this.parentElement.style.display='flex'; this.parentElement.style.alignItems='center'; this.parentElement.style.justifyContent='center';" />
+      </div>
+      <div class="fac-body">
+        <div class="fac-name">Sound System</div>
+        <div class="fac-cap">Speaker & Mixer</div>
+        
+      </div>
+    </div>
+
+    <div class="facility-card" onclick="showDetail('musik')" data-cat="Peralatan">
+      <div class="fac-img" >
+        <img src="img/alat-musik.jpg" alt="Alat Musik"
+             
+             onerror="this.parentElement.innerHTML='🎸'; this.parentElement.style.fontSize='28px'; this.parentElement.style.display='flex'; this.parentElement.style.alignItems='center'; this.parentElement.style.justifyContent='center';" />
+      </div>
+      <div class="fac-body">
+        <div class="fac-name">Alat Musik</div>
+        <div class="fac-cap">Gitar, Keyboard, dll</div>
+        
+      </div>
+    </div>
+
+    <div class="facility-card" onclick="showDetail('sepeda')" data-cat="Peralatan">
+      <div class="fac-img" >
+        <img src="img/sepeda-listrik.jpg" alt="Sepeda Listrik"
+             
+             onerror="this.parentElement.innerHTML='🛵'; this.parentElement.style.fontSize='28px'; this.parentElement.style.display='flex'; this.parentElement.style.alignItems='center'; this.parentElement.style.justifyContent='center';" />
+      </div>
+      <div class="fac-body">
+        <div class="fac-name">Sepeda Listrik</div>
+        <div class="fac-cap">Kapasitas 1 Orang / unit</div>
+        
+      </div>
+    </div>
+
+    <!-- MULTIMEDIA -->
+    <div class="facility-card" onclick="showDetail('lab')" data-cat="Multimedia">
+      <div class="fac-img" >
+        <img src="img/lab-komputer.jpg" alt="Lab Komputer"
+             
+             onerror="this.parentElement.innerHTML='💻'; this.parentElement.style.fontSize='28px'; this.parentElement.style.display='flex'; this.parentElement.style.alignItems='center'; this.parentElement.style.justifyContent='center';" />
+      </div>
+      <div class="fac-body">
+        <div class="fac-name">Lab Komputer</div>
+        <div class="fac-cap">Kapasitas 40 Orang</div>
+        
+      </div>
+    </div>
+
+  </div>
+</div>

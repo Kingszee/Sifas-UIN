@@ -1,0 +1,46 @@
+<!-- ============================================================
+     HALAMAN 5: KONFIRMASI PENGAJUAN
+     File: pages/konfirmasi.html
+     Sinkron: semua id → tampilKonfirmasi() di main.js
+              data diisi dari hasil submitPeminjaman() Firestore
+============================================================ -->
+<div id="konfirmasi" class="page">
+
+  <div class="confirm-card">
+
+    <div class="confirm-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#2d6bc4" stroke-width="2">
+        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+        <polyline points="22 4 12 14.01 9 11.01"/>
+      </svg>
+    </div>
+
+    <h2 style="font-size:18px; font-weight:700; color:var(--text)">Pengajuan Berhasil Dikirim!</h2>
+    <p style="font-size:13px; color:var(--gray-3); margin-top:8px">
+      Pengajuan Anda telah tersimpan di database dan sedang menunggu verifikasi admin.
+    </p>
+
+    <!-- id="konfBookingId" diisi oleh tampilKonfirmasi() di main.js -->
+    <div class="booking-id" id="konfBookingId">-</div>
+
+    <table class="detail-table">
+      <tr><td>Fasilitas</td>     <td style="font-weight:500" id="konfFasilitas">-</td></tr>
+      <tr><td>Tanggal</td>       <td style="font-weight:500" id="konfTanggal">-</td></tr>
+      <tr><td>Waktu</td>         <td style="font-weight:500" id="konfWaktu">-</td></tr>
+      <tr><td>Tujuan</td>        <td style="font-weight:500" id="konfTujuan">-</td></tr>
+      <tr><td>Jumlah Peserta</td><td style="font-weight:500" id="konfPeserta">-</td></tr>
+    </table>
+
+    <div class="info-banner info" style="text-align:left; margin-top:16px">
+      ℹ️ Notifikasi status akan dikirim ke email: <strong id="konfEmail">-</strong>
+    </div>
+
+    <div class="btn-row" style="margin-top:20px">
+      <button class="btn-outline" onclick="go('beranda')">Kembali ke Beranda</button>
+      <button class="btn-primary" style="border:none; cursor:pointer"
+              onclick="go('status'); autoLoadLastBooking()">Cek Status</button>
+    </div>
+
+  </div>
+
+</div>

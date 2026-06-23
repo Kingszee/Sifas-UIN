@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SiFas UIN — Sistem Peminjaman Fasilitas</title>
+  <link rel="icon" type="image/x-icon" href="favicon.ico" />
+  <link rel="icon" type="image/png"   href="img/favicon.png" />
+  <link rel="apple-touch-icon"        href="img/logo-uin.png" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <div id="root-navbar"></div>
+  <div id="root-pages"></div>
+
+  <!-- ============================================================
+       LIBRARY LOKAL — dimuat PERTAMA agar tersedia saat script lain jalan
+       JsBarcode   : generate barcode CODE128 yang bisa di-scan
+       html5-qrcode: scanner barcode via kamera
+  ============================================================ -->
+  <script src="js/lib/JsBarcode.all.min.js"></script>
+  <script src="js/lib/html5-qrcode.min.js"></script>
+
+  <!-- ============================================================
+       JAVASCRIPT APLIKASI
+       Urutan wajib: data → firebase → calendar → main → admin → scanner
+  ============================================================ -->
+  <script src="js/data.js"></script>
+  <script src="js/firebase.js"></script>
+  <script src="js/calendar.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/admin.js"></script>
+  <script src="js/scanner.js"></script>
+
+  <!-- ============================================================
+       FIREBASE INIT — type="module" otomatis defer, jalan TERAKHIR
+       Menjamin event 'firebase-ready' fired setelah semua script siap
+  ============================================================ -->
+  <script type="module" src="js/firebase-init.js"></script>
+
+</body>
+</html>

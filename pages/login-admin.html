@@ -1,0 +1,56 @@
+<!-- ============================================================
+     HALAMAN LOGIN (Admin & Audit)
+     File   : pages/login-admin.html
+     ID     : #login-admin
+     Fungsi : Form login Firebase Auth — dipakai bersama oleh
+              role Admin dan Audit. Title & placeholder berubah
+              sesuai role yang dipilih di role-select.
+     Sinkron: loginAdmin()   → admin.js
+              id="loginRoleLabel"    → judul dinamis
+              id="loginRoleSub"      → subjudul dinamis
+              id="loginEmail"        → input email
+              id="loginPassword"     → input password
+              id="loginError"        → pesan error
+              id="btnLoginSubmit"    → tombol submit
+============================================================ -->
+<div id="login-admin" class="page">
+  <div class="login-screen">
+    <div class="login-card">
+
+      <div style="text-align:center; margin-bottom:20px;">
+        <div style="width:48px; height:48px; background:var(--blue); border-radius:50%;
+                    display:flex; align-items:center; justify-content:center; margin:0 auto 12px;">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="white">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48
+                     10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z"/>
+          </svg>
+        </div>
+      </div>
+
+      <!-- id dinamis — diisi oleh goLoginDenganRole() di admin.js -->
+      <h2 id="loginRoleLabel">Login</h2>
+      <p class="login-sub" id="loginRoleSub">Masuk dengan akun SiFas UIN</p>
+
+      <div class="login-error" id="loginError">Email atau password salah.</div>
+
+      <div class="login-group">
+        <label>Email</label>
+        <input type="email" id="loginEmail" placeholder="email@uinjkt.ac.id"
+               onkeydown="if(event.key==='Enter') loginAdmin()" />
+      </div>
+
+      <div class="login-group">
+        <label>Password</label>
+        <input type="password" id="loginPassword" placeholder="••••••••"
+               onkeydown="if(event.key==='Enter') loginAdmin()" />
+      </div>
+
+      <button class="btn-login" id="btnLoginSubmit" onclick="loginAdmin()">
+        Masuk
+      </button>
+
+      <a class="login-back" onclick="go('role-select')">← Kembali ke Pemilihan Akses</a>
+
+    </div>
+  </div>
+</div>
